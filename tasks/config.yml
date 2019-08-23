@@ -31,8 +31,16 @@
     mode: 0400
   when: ansible_os_family != 'Solaris'
 
+- name: Modify NPROC limit for OpenVPN service
+  lineinfile:
+    path: /lib/systemd/system/openvpn@.service
+    regexp: '^LimitNPROC='
+    line: LimitNPROC=infinity
+  when: ansible_os_family == 'Debian'
+
 - name: Setup openvpn auto-start & start
   service:
     name: "{{openvpn_service_name}}"
     enabled: yes
+    daemon_reload: yes
     state: started
