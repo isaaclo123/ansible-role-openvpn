@@ -92,7 +92,7 @@
 
 # Alternatively, if you're concerned about logjam attacks
 - name: generate dh params
-  command: openssl dhparam -out {{openvpn_key_dir}}/dh.pem {{openvpn_rsa_bits}}
+  command: openssl dhparam -dsaparam -out {{openvpn_key_dir}}/dh.pem {{openvpn_rsa_bits}}
   args:
     chdir: "{{openvpn_key_dir}}"
     creates: dh.pem
